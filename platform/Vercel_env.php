@@ -353,7 +353,7 @@ function getEachFiles(&$file, $base, $path = "")
         }
     }
     closedir($handler);
-    
+
     return json_encode( [ 'response' => 'success' ] );
 }
 
@@ -374,17 +374,13 @@ function setConfigResponse($response)
     return json_decode($response, true);
 }
 
-function OnekeyUpate($GitSource = 'Github', $auth = 'qkqpttgf', $project = 'OneManager-php', $branch = 'master')
+// Tfo
+function OnekeyUpate($auth = 'BingoKingo', $project = 'Tfo', $branch = 'master')
 {
     $tmppath = '/tmp';
 
-    if ($GitSource=='Github') {
-        // 从github下载对应tar.gz，并解压
-        $url = 'https://github.com/' . $auth . '/' . $project . '/tarball/' . urlencode($branch) . '/';
-    } elseif ($GitSource=='HITGitlab') {
-        $url = 'https://git.hit.edu.cn/' . $auth . '/' . $project . '/-/archive/' . urlencode($branch) . '/' . $project . '-' . urlencode($branch) . '.tar.gz';
-    } else return json_encode(['error'=>['code'=>'Git Source input Error!']]);
-
+    // 从github下载对应tar.gz，并解压
+    $url = 'https://github.com/' . $auth . '/' . $project . '/tarball/' . urlencode($branch) . '/';
     $tarfile = $tmppath . '/github.tar.gz';
     file_put_contents($tarfile, file_get_contents($url));
     $phar = new PharData($tarfile);

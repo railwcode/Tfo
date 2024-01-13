@@ -6,9 +6,9 @@ function printInput($event, $context)
 {
     if (strlen(json_encode($event['body']))>500) $event['body']=substr($event['body'],0,strpos($event['body'],'base64')+30) . '...Too Long!...' . substr($event['body'],-50);
     echo urldecode(json_encode($event, JSON_PRETTY_PRINT)) . '
- 
+
 ' . urldecode(json_encode($context, JSON_PRETTY_PRINT)) . '
- 
+
 ';
 }
 
@@ -229,7 +229,7 @@ language:<br>';
             $html .= '
         <label><input type="radio" name="language" value="'.$key1.'" '.($key1==$constStr['language']?'checked':'').' onclick="changelanguage(\''.$key1.'\')">'.$value1.'</label><br>';
         }
-        //if (getConfig('AccessKeyID')==''||getConfig('AccessKeySecret')=='') 
+        //if (getConfig('AccessKeyID')==''||getConfig('AccessKeySecret')=='')
         $html .= '
         <a href="https://usercenter.console.aliyun.com/?#/manage/ak" target="_blank">' . getconstStr('Create') . ' AccessKeyID & AccessKeySecret</a><br>
         <label>AccessKeyID:<input name="AccessKeyID" type="text" placeholder="" size=""></label><br>
@@ -254,7 +254,7 @@ language:<br>';
         }
         function notnull(t)
         {';
-        //if (getConfig('AccessKeyID')==''||getConfig('AccessKeySecret')=='') 
+        //if (getConfig('AccessKeyID')==''||getConfig('AccessKeySecret')=='')
         $html .= '
             if (t.AccessKeyID.value==\'\') {
                 alert(\'input AccessKeyID\');
@@ -421,17 +421,14 @@ function setConfigResponse($response)
     return json_decode($response, true);
 }
 
-function OnekeyUpate($GitSource = 'Github', $auth = 'qkqpttgf', $project = 'OneManager-php', $branch = 'master')
+// Tfo
+function OnekeyUpate($auth = 'BingoKingo', $project = 'Tfo', $branch = 'master')
 {
     $source = '/tmp/code.zip';
     $outPath = '/tmp/';
 
-    if ($GitSource=='Github') {
-        // 从github下载对应tar.gz，并解压
-        $url = 'https://github.com/' . $auth . '/' . $project . '/tarball/' . urlencode($branch) . '/';
-    } elseif ($GitSource=='HITGitlab') {
-        $url = 'https://git.hit.edu.cn/' . $auth . '/' . $project . '/-/archive/' . urlencode($branch) . '/' . $project . '-' . urlencode($branch) . '.tar.gz';
-    } else return json_encode(['ErrorMessage'=>'Git Source input Error!']);
+    // 从github下载对应tar.gz，并解压
+    $url = 'https://github.com/' . $auth . '/' . $project . '/tarball/' . urlencode($branch) . '/';
     $tarfile = '/tmp/github.tar.gz';
     file_put_contents($tarfile, file_get_contents($url));
     $phar = new PharData($tarfile);

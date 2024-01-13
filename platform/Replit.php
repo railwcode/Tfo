@@ -285,17 +285,14 @@ function setConfigResponse($response)
     //return json_decode($response, true);
 }
 
-function OnekeyUpate($GitSource = 'Github', $auth = 'qkqpttgf', $project = 'OneManager-php', $branch = 'master')
+// Tfo
+function OnekeyUpate($auth = 'BingoKingo', $project = 'Tfo', $branch = 'master')
 {
     // __DIR__ is xxx/platform
     $projectPath = splitlast(__DIR__, '/')[0];
 
-    if ($GitSource=='Github') {
-        // 从github下载对应tar.gz，并解压
-        $url = 'https://github.com/' . $auth . '/' . $project . '/tarball/' . urlencode($branch) . '/';
-    } elseif ($GitSource=='HITGitlab') {
-        $url = 'https://git.hit.edu.cn/' . $auth . '/' . $project . '/-/archive/' . urlencode($branch) . '/' . $project . '-' . urlencode($branch) . '.tar.gz';
-    } else return ['stat'=>500, 'body'=>'Git Source input Error!'];
+    // 从github下载对应tar.gz，并解压
+    $url = 'https://github.com/' . $auth . '/' . $project . '/tarball/' . urlencode($branch) . '/';
     $tarfile = $projectPath . '/github.tar.gz';
     $githubfile = file_get_contents($url);
     if (!$githubfile) return ['stat'=>500, 'body'=>'download error from github.'];

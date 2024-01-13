@@ -275,7 +275,7 @@ function HerokuAPI($method, $url, $data = '', $apikey)
 {
     if ($method=='PATCH'||$method=='POST') {
         $headers['Content-Type'] = 'application/json';
-    } 
+    }
     $headers['Authorization'] = 'Bearer ' . $apikey;
     $headers['Accept'] = 'application/vnd.heroku+json; version=3';
     //if (!isset($headers['Accept'])) $headers['Accept'] = '*/*';
@@ -340,15 +340,11 @@ function_name:' . $_SERVER['function_name'] . '<br>
 <button onclick="location.href = location.href;">'.getconstStr('Refresh').'</button>';
 }
 
-function OnekeyUpate($GitSource = 'Github', $auth = 'qkqpttgf', $project = 'OneManager-php', $branch = 'master')
+// Tfo
+function OnekeyUpate($auth = 'BingoKingo', $project = 'Tfo', $branch = 'master')
 {
-    if ($GitSource=='Github') {
-        //'https://github.com/qkqpttgf/OneManager-php/tarball/master/';
-        $source = 'https://github.com/' . $auth . '/' . $project . '/tarball/' . urlencode($branch) . '/';
-    } elseif ($GitSource=='HITGitlab') {
-        $source = 'https://git.hit.edu.cn/' . $auth . '/' . $project . '/-/archive/' . urlencode($branch) . '/' . $project . '-' . urlencode($branch) . '.tar.gz';
-    } else return ['stat'=>403, 'body'=>json_encode(['id'=>'Error', 'message'=>'Git Source input Error!'])];
-
+    //'https://github.com/qkqpttgf/OneManager-php/tarball/master/';
+    $source = 'https://github.com/' . $auth . '/' . $project . '/tarball/' . urlencode($branch) . '/';
     return updateHerokuapp(getConfig('HerokuappId'), getConfig('APIKey'), $source);
 }
 

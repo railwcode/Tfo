@@ -1366,7 +1366,8 @@ function EnvOpt($needUpdate = 0) {
     //foreach ($EnvConfigs as $env => $v) if (isCommonEnv($env)) $envs .= '\'' . $env . '\', ';
     $envs = substr(json_encode(array_keys($EnvConfigs)), 1, -1);
 
-    $html = '<title>OneManager ' . getconstStr('Setup') . '</title>';
+    // Tfo
+    $html = '<title>Tfo ' . getconstStr('Setup') . '</title>';
     if (isset($_POST['updateProgram']) && $_POST['updateProgram'] == getconstStr('updateProgram')) if (compareadminmd5('admin', getConfig('admin'), $_COOKIE['admin'], $_POST['_admin'])) {
         $response = setConfigResponse(OnekeyUpate($_POST['GitSource'], $_POST['auth'], $_POST['project'], $_POST['branch']));
         if (api_error($response)) {
@@ -1866,10 +1867,10 @@ output:
                 $canOneKeyUpate = 1;
             }
         }
+        // Tfo
         $frame .= '
-        <a href="https://github.com/qkqpttgf/OneManager-php" target="_blank">Github</a>
-        <a href="https://git.hit.edu.cn/ysun/OneManager-php" target="_blank">HIT Gitlab</a><br><br>
-';
+        <a href="https://github.com/BingoKingo/Tfo" target="_blank">Github</a>
+        ';
         if (!$canOneKeyUpate) {
             $frame .= '
 ' . getconstStr('CannotOneKeyUpate') . '<br>';
@@ -1877,13 +1878,8 @@ output:
             $frame .= '
 <form name="updateform" action="" method="post">
     <input name="_admin" type="hidden" value="">
-    Update from
-    <select name="GitSource" onchange="changeGitSource(this)">
-        <option value="Github" selected>Github</option>
-        <option value="HITGitlab">HIT Gitlab</option>
-    </select>
-    <input type="text" name="auth" size="6" placeholder="auth" value="qkqpttgf">
-    <input type="text" name="project" size="12" placeholder="project" value="OneManager-php">
+    <input type="text" name="auth" size="6" placeholder="auth" value="BingoKingo">
+    <input type="text" name="project" size="12" placeholder="project" value="Tfo">
     <button name="QueryBranchs" onclick="querybranchs(this);return false;">' . getconstStr('QueryBranchs') . '</button>
     <select name="branch">
         <option value="master">master</option>
@@ -2227,11 +2223,12 @@ function render_list($path = '', $files = []) {
     //$pretitle = str_replace('%23','#',$pretitle);
     $statusCode = 200;
     date_default_timezone_set(get_timezone($_SERVER['timezone']));
+
+    // Tfo
     $authinfo = '
 <!--
-    OneManager: An index & manager of Onedrive auth by ysun.
-    HIT Gitlab: https://git.hit.edu.cn/ysun/OneManager-php
-    Github: https://github.com/qkqpttgf/OneManager-php
+    Tfo: A website for two-point filestorage online (tfo).
+    Github: https://github.com/BingoKingo/Tfo
 -->';
     //$authinfo = $path . '<br><pre>' . json_encode($files, JSON_PRETTY_PRINT) . '</pre>';
 
@@ -2976,6 +2973,36 @@ function render_list($path = '', $files = []) {
         //if (strlen($diskname)>15) $diskname = substr($diskname, 0, 12).'...';
         while (strpos($html, '<!--DiskNameNow-->')) $html = str_replace('<!--DiskNameNow-->', $diskname, $html);
 
+        // Tfo
+        $html = str_replace('<!--Sitename-->', $_SERVER['sitename'], $html);
+
+        $tmp = splitfirst($html, '<!--MultiDiskArea2Start-->');
+        $html = $tmp[0];
+        $tmp = splitfirst($tmp[1], '<!--MultiDiskArea2End-->');
+        $disktags = explode("|",getConfig('disktag'));
+        if (count($disktags)>1) {
+            $tmp1 = $tmp[1];
+            $tmp = splitfirst($tmp[0], '<!--MultiDisks2Start-->');
+            $MultiDiskArea2 = $tmp[0];
+            $tmp = splitfirst($tmp[1], '<!--MultiDisks2End-->');
+            $MultiDisks = $tmp[0];
+            foreach ($disktags as $disk) if ($_SERVER['admin']||getConfig('diskDisplay', $disk)=='') {
+                $diskname = getConfig('diskname', $disk);
+                if ($diskname=='') $diskname = $disk;
+                $MultiDisksStr = str_replace('<!--MultiDisks2Url-->', path_format($_SERVER['base_path'].'/'.$disk.'/'), $MultiDisks);
+                $MultiDisksStr = str_replace('<!--MultiDisks2Now-->', ($_SERVER['disktag']==$disk?' now':''), $MultiDisksStr);
+                $MultiDisksStr = str_replace('<!--MultiDisks2Name-->', $diskname, $MultiDisksStr);
+                $MultiDiskArea2 .= $MultiDisksStr;
+            }
+            $MultiDiskArea2 .= $tmp[1];
+            $tmp[1] = $tmp1;
+        }
+        $html .= $MultiDiskArea2 . $tmp[1];
+        $diskname = getConfig('diskname', $_SERVER['disktag']);
+        if ($diskname=='') $diskname = $_SERVER['disktag'];
+        //if (strlen($diskname)>15) $diskname = substr($diskname, 0, 12).'...';
+        while (strpos($html, '<!--DiskNameNow-->')) $html = str_replace('<!--DiskNameNow-->', $diskname, $html);
+
         $tmp = splitfirst($html, '<!--HeadomfStart-->');
         $html = $tmp[0];
         $tmp = splitfirst($tmp[1], '<!--HeadomfEnd-->');
@@ -3180,11 +3207,12 @@ function render_list($path = '', $files = []) {
         $html = str_replace('<!--FootStr-->', date("Y-m-d H:i:s") . " " . getconstStr('Week')[date("w")] . " " . $_SERVER['REMOTE_ADDR'] . $city . ' Runningtime:' . $exetime . 's Mem:' . size_format(memory_get_usage()), $html);
     }
 
+    // Tfo
     /*if ($_SERVER['admin']||!getConfig('disableChangeTheme')) {
         $theme_arr = scandir(__DIR__ . $slash . 'theme');
         $selecttheme = '
-    <div style="position: fixed;right: 10px;bottom: 10px;">
-        <select name="theme" onchange="changetheme(this.options[this.options.selectedIndex].value)">
+    <div style="position: fixed;right: 8px;bottom: 8px;">
+        <select name="theme" style="width: 20px;" onchange="changetheme(this.options[this.options.selectedIndex].value)">
             <option value="">'.getconstStr('Theme').'</option>';
         foreach ($theme_arr as $v1) {
             if ($v1!='.' && $v1!='..') $selecttheme .= '

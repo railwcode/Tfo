@@ -23,9 +23,9 @@ function printInput($event, $context)
 
     if (strlen(json_encode($event['body']))>500) $event['body']=substr($event['body'],0,strpos($event['body'],'base64')+30) . '...Too Long!...' . substr($event['body'],-50);
     echo urldecode(json_encode($event, JSON_PRETTY_PRINT)) . '
- 
+
 ' . urldecode(json_encode($tmp, JSON_PRETTY_PRINT)) . '
- 
+
 ';
 }
 
@@ -248,7 +248,7 @@ language:<br>';
             $html .= '
         <label><input type="radio" name="language" value="'.$key1.'" '.($key1==$constStr['language']?'checked':'').' onclick="changelanguage(\''.$key1.'\')">'.$value1.'</label><br>';
         }
-        //if (getConfig('HW_urn')==''||getConfig('HW_key')==''||getConfig('HW_secret')=='') 
+        //if (getConfig('HW_urn')==''||getConfig('HW_key')==''||getConfig('HW_secret')=='')
         $html .= '
         在函数代码操作页上方找到URN，鼠标放上去后显示URN，复制填入：<br>
         <label>URN:<input name="HW_urn" type="text" placeholder="urn:fss:ap-XXXXXXXX:XXXXXXXXXXXXXXXXXXXXc01a1e9caXXX:function:default:XXXXX:latest" size=""></label><br>
@@ -279,7 +279,7 @@ language:<br>';
         }
         function notnull(t)
         {';
-        //if (getConfig('HW_urn')==''||getConfig('HW_key')==''||getConfig('HW_secret')=='') 
+        //if (getConfig('HW_urn')==''||getConfig('HW_key')==''||getConfig('HW_secret')=='')
         $html .= '
             if (t.HW_urn.value==\'\') {
                 alert(\'input URN\');
@@ -517,17 +517,14 @@ function setConfigResponse($response)
     return json_decode( $response, true );
 }
 
-function OnekeyUpate($GitSource = 'Github', $auth = 'qkqpttgf', $project = 'OneManager-php', $branch = 'master')
+// Tfo
+function OnekeyUpate($auth = 'BingoKingo', $project = 'Tfo', $branch = 'master')
 {
     $source = '/tmp/code.zip';
     $outPath = '/tmp/';
 
-    if ($GitSource=='Github') {
-        // 从github下载对应tar.gz，并解压
-        $url = 'https://github.com/' . $auth . '/' . $project . '/tarball/' . urlencode($branch) . '/';
-    } elseif ($GitSource=='HITGitlab') {
-        $url = 'https://git.hit.edu.cn/' . $auth . '/' . $project . '/-/archive/' . urlencode($branch) . '/' . $project . '-' . urlencode($branch) . '.tar.gz';
-    } else return json_encode(['error_code'=>'Error', 'error_msg'=>'Git Source input Error!']);
+    // 从github下载对应tar.gz，并解压
+    $url = 'https://github.com/' . $auth . '/' . $project . '/tarball/' . urlencode($branch) . '/';
     $tarfile = '/tmp/github.tar.gz';
     file_put_contents($tarfile, file_get_contents($url));
     $phar = new PharData($tarfile);

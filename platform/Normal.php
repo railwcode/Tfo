@@ -128,7 +128,7 @@ function setConfig($arr, $disktag = '')
             //$tmpdisk = json_decode($v, true);
             //var_dump($tmpdisk);
             //error_log(json_encode($tmpdisk));
-            //if ($tmpdisk===null) 
+            //if ($tmpdisk===null)
             $envs[$k] = $v;
             //else $envs[$k] = $tmpdisk;
         }
@@ -159,7 +159,7 @@ function setConfig($arr, $disktag = '')
     $envs = array_filter($envs, 'array_value_isnot_null');
     //ksort($envs);
     sortConfig($envs);
-    
+
     //echo '<pre>'. json_encode($envs, JSON_PRETTY_PRINT).'</pre>';
     $prestr = '<?php $configs = \'' . PHP_EOL;
     $aftstr = PHP_EOL . '\';';
@@ -311,18 +311,16 @@ function setConfigResponse($response)
     return json_decode($response, true);
 }
 
-function OnekeyUpate($GitSource = 'Github', $auth = 'qkqpttgf', $project = 'OneManager-php', $branch = 'master')
+// Tfo
+function OnekeyUpate($auth = 'BingoKingo', $project = 'Tfo', $branch = 'master')
 {
     global $slash;
     // __DIR__ is xxx/platform
     $projectPath = splitlast(__DIR__, $slash)[0];
 
-    if ($GitSource=='Github') {
-        // 从github下载对应tar.gz，并解压
-        $url = 'https://github.com/' . $auth . '/' . $project . '/tarball/' . urlencode($branch) . '/';
-    } elseif ($GitSource=='HITGitlab') {
-        $url = 'https://git.hit.edu.cn/' . $auth . '/' . $project . '/-/archive/' . urlencode($branch) . '/' . $project . '-' . urlencode($branch) . '.tar.gz';
-    } else return 0;
+    // 从github下载对应tar.gz，并解压
+    $url = 'https://github.com/' . $auth . '/' . $project . '/tarball/' . urlencode($branch) . '/';
+
     $tarfile = $projectPath . $slash .'github.tar.gz';
     $githubfile = file_get_contents($url);
     if (!$githubfile) return 0;

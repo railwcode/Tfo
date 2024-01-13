@@ -7,8 +7,12 @@ $exts['img'] = ['ico', 'bmp', 'gif', 'jpg', 'jpeg', 'jpe', 'jfif', 'tif', 'tiff'
 $exts['music'] = ['mp3', 'wma', 'flac', 'ape', 'wav', 'ogg', 'm4a'];
 $exts['office'] = ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'];
 $exts['txt'] = ['txt', 'log', 'bat', 'sh', 'php', 'asp', 'js', 'css', 'json', 'html', 'c', 'cpp', 'md', 'py', 'omf'];
-$exts['video'] = ['mp4', 'webm', 'mkv', 'mov', 'flv', 'blv', 'avi', 'wmv', 'm3u8', 'rm', '3gp', 'rmvb'];
+// Tfo
+$exts['video'] = ['mp4', 'webm', 'mkv', 'mov', 'flv', 'blv', 'avi', 'wmv', 'm3u8', 'm3u', 'rm', '3gp', 'rmvb'];
 $exts['zip'] = ['zip', 'rar', '7z', 'gz', 'tar'];
+$exts['apple'] = ['ipa', 'dmg', 'app', 'pkg'];
+// Tfo
+$exts['odo'] = ['wps', 'key', 'numbers', 'key', 'pdf', 'csv', 'dif', 'docm', 'dotx', 'odt', 'one', 'onepkg', 'onetoc2', 'pot', 'potm', 'potx', 'pps', 'ppsm', 'ppsx', 'pptm', 'prn', 'rtf', 'slk', 'thmx', 'xlam', 'xlsb', 'xlsm', 'xlt', 'xltx', 'xltm', 'one']; //Tfo
 
 $constStr = [
     'languages' => [
@@ -473,13 +477,14 @@ $constStr = [
         'fa' => 'فهرست',
         'ar-sa' => 'الليست',
     ],
+// Tfo
     'NeedUpdate' => [
-        'en-us' => 'Program can update<br>Click setup in Operate at top.',
-        'zh-cn' => '可以升级程序<br>在上方管理菜单中<br>进入设置页面升级',
-        'zh-tw' => '可以升級程式<br>在上方管理選單中<br>進入設定頁面升級',
-        'ja' => 'プログラムをアップグレードできます<br>上記の管理メニューで<br>アップグレードする設定ページに入ります',
-        'ko-kr' => '프로그램을 업그레이드 할 수 있습니다. <br> 위의 관리 메뉴에서 <br> 업그레이드 할 설정 페이지를 입력하십시오.',
-        'fa' => 'برنامه می تواند آپدیت شود<br>روی گزینه نصب در بالای صفحه کلیک کنید.',
+        'en-us' => 'Program can update Click setup in Operate at top.',
+        'zh-cn' => '可以升级程序 在上方管理菜单中 进入设置页面升级',
+        'zh-tw' => '可以升級程式 在上方管理選單中 進入設定頁面升級',
+        'ja' => 'プログラムをアップグレードできます 上記の管理メニューで アップグレードする設定ページに入ります',
+        'ko-kr' => '프로그램을 업그레이드 할 수 있습니다.   위의 관리 메뉴에서   업그레이드 할 설정 페이지를 입력하십시오.',
+        'fa' => 'برنامه می تواند آپدیت شود روی گزینه نصب در بالای صفحه کلیک کنید.',
         'ar-sa' => 'يمكن ترقية البرنامج في القائمة أعلاه إدارة',
     ],
     'Operate' => [
